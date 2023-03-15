@@ -21,7 +21,6 @@ class Event {
 
   /**
    *触发
-   *
    * @param {*} type
    * @param {*} event
    * @returns
@@ -35,7 +34,6 @@ class Event {
     if (!typeListeners) return;
     for (let index = 0; index < typeListeners.length; index++) {
       const handler = typeListeners[index];
-
       handler(event);
     }
   }

@@ -1,48 +1,48 @@
 import { useEffect } from 'react';
 import styles from './index.less';
 import brownPng from '@/assets/common/bg-brown.png';
+import Canvas from '../../components/CustomCanvas/Canvas';
 
 export default function IndexPage() {
   useEffect(() => {
-    draw();
+    // draw1();
+    draw2();
   }, []);
 
-  const draw = () => {
-    let canvas = document.getElementById('tutorial') as HTMLCanvasElement;
-
-    canvas.addEventListener('click', () => {
-      console.log(2222);
-    });
-
+  const draw1 = () => {
+    let canvas = document.getElementById('canvas') as HTMLCanvasElement;
     if (canvas.getContext) {
       let ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-      // //简单绘制
-      // ctx.fillStyle = 'rgb(200,0,0)';
-      // ctx.fillRect(25, 25, 100, 100);
-      // ctx.clearRect(45, 45, 60, 60);
-      // ctx.strokeRect(50, 50, 50, 50);
-      // //绘制三角形
-      // ctx.beginPath();
-      // ctx.moveTo(150, 150);
-      // ctx.lineTo(150, 200);
-      // ctx.lineTo(200, 250);
-      // ctx.fill();
-      // //绘制图形
-      // ctx.beginPath();
-      // ctx.arc(300, 300, 150, 0, Math.PI * 2, true); // 绘制
-      // ctx.stroke();
-
-      //绘制文本
-      ctx.font = '22px serif';
-      ctx.fillText('哆啦A梦', 10, 50);
-
       drawCartoon(ctx);
       // drawImage(ctx);
-      //设置颜色
-      drawColors(ctx);
     } else {
       // canvas-unsupported code here
     }
+  };
+  const draw2 = () => {
+    const canvas = new Canvas(
+      document.querySelector('#canvas') as HTMLCanvasElement,
+    );
+
+    const offset = 18;
+    for (var i = 0; i < 6; i++) {
+      for (var j = 0; j < 6; j++) {
+        const rect = canvas.rect({
+          x: (j + offset) * 25,
+          y: (i + offset) * 25,
+          width: 25,
+          height: 25,
+          fillStyle: `rgb(${Math.floor(255 - 42.5 * i)},${Math.floor(
+            255 - 42.5 * j,
+          )},0`,
+        });
+        rect.on('click', (event: Event) => {
+          console.log(`rect${i}${j} click`, event);
+        });
+      }
+    }
+
+    canvas.draw();
   };
 
   const drawCartoon = (ctx: CanvasRenderingContext2D) => {
@@ -129,24 +129,10 @@ export default function IndexPage() {
     };
     img.src = brownPng;
   };
-  const drawColors = (ctx: CanvasRenderingContext2D) => {
-    const offset = 18;
-    for (var i = 0; i < 6; i++) {
-      for (var j = 0; j < 6; j++) {
-        ctx.fillStyle =
-          'rgb(' +
-          Math.floor(255 - 42.5 * i) +
-          ',' +
-          Math.floor(255 - 42.5 * j) +
-          ',0)';
-        ctx.fillRect((j + offset) * 25, (i + offset) * 25, 25, 25);
-      }
-    }
-  };
 
   return (
     <div>
-      <canvas className={styles.canvas} id="tutorial" width="600" height="600">
+      <canvas className={styles.canvas} id="canvas" width="600" height="600">
         <span>浏览器不支持canvas</span>
       </canvas>
     </div>

@@ -1,9 +1,11 @@
 import Event from './Event';
+import Canvas from './Canvas';
+import { RectConfig } from './type';
 
 class Rect extends Event {
   canvas;
-  config;
-  constructor(opts: any, canvas: any) {
+  config: RectConfig;
+  constructor(opts: RectConfig, canvas: Canvas) {
     super();
     this.canvas = canvas;
     this.config = opts;
