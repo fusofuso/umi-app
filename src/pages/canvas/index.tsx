@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import styles from './index.less';
 import brownPng from '@/assets/common/bg-brown.png';
 import Canvas from '../../components/CustomCanvas/Canvas';
+import { EventEnum } from '@/components/CustomCanvas/enum';
 
-export default function IndexPage() {
+export default function CanvasDemo() {
   useEffect(() => {
-    // draw1();
-    draw2();
+    draw();
   }, []);
 
-  const draw2 = () => {
+  const draw = () => {
     const canvas = new Canvas(
       document.querySelector('#canvas') as HTMLCanvasElement,
     );
@@ -26,8 +26,7 @@ export default function IndexPage() {
             255 - 42.5 * j,
           )},0`,
         });
-        rect.on('click', (event: PointerEvent) => {
-          console.log(`rect${i}${j} click`, event, rect.config);
+        rect.on(EventEnum.CLICK, (event: PointerEvent) => {
           drawCartoon(canvas.ctx, rect.config.fillStyle);
         });
       }
@@ -40,13 +39,13 @@ export default function IndexPage() {
     // 绘制哆啦A梦的头
     ctx.beginPath();
     ctx.arc(200, 200, 100, 0, 2 * Math.PI);
-    ctx.fillStyle = '#00a0dc';
+    ctx.fillStyle = fillStyle;
     ctx.fill();
 
     // 绘制哆啦A梦的身体
     ctx.beginPath();
     ctx.rect(150, 300, 100, 100);
-    ctx.fillStyle = '#00a0dc';
+    ctx.fillStyle = fillStyle;
     ctx.fill();
 
     // 绘制哆啦A梦的手
@@ -56,7 +55,7 @@ export default function IndexPage() {
     ctx.lineTo(150, 350);
     ctx.lineTo(100, 350);
     ctx.closePath();
-    ctx.fillStyle = '#00a0dc';
+    ctx.fillStyle = fillStyle;
     ctx.fill();
 
     ctx.beginPath();
@@ -65,7 +64,7 @@ export default function IndexPage() {
     ctx.lineTo(250, 350);
     ctx.lineTo(300, 350);
     ctx.closePath();
-    ctx.fillStyle = '#00a0dc';
+    ctx.fillStyle = fillStyle;
     ctx.fill();
 
     // 绘制哆啦A梦的脚

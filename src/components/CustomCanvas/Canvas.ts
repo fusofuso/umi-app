@@ -2,10 +2,11 @@ import Event from './Event';
 import Rect from './Rect';
 import { RectConfig } from './type';
 import { EventList } from './const';
+import { EventEnum } from './enum';
 
 class Canvas extends Event {
   ctx: CanvasRenderingContext2D;
-  canvas;
+  canvas: HTMLCanvasElement;
   children: Array<Rect>;
   constructor(c: HTMLCanvasElement) {
     super();
@@ -22,10 +23,10 @@ class Canvas extends Event {
       );
     });
   }
-  handleEvent = (event: MouseEvent) => {
+  handleEvent = (event: PointerEvent) => {
     this.children
       .filter((shape) => shape.isEventInRegion(event.x, event.y))
-      .forEach((shape) => shape.emit(event.type, event));
+      .forEach((shape) => shape.emit(event.type as EventEnum, event));
   };
 
   addChild(shape: Rect) {

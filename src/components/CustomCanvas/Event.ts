@@ -1,5 +1,6 @@
+import { EventEnum } from './enum';
 class Event {
-  _listener: any;
+  _listener: { [propsName: string]: Function[] };
 
   constructor() {
     this._listener = {};
@@ -11,7 +12,7 @@ class Event {
    * @param {function} handler
    * @memberof Event
    */
-  on(type: string, handler: Function) {
+  on(type: EventEnum, handler: Function) {
     if (!this._listener[type]) {
       this._listener[type] = [];
     }
@@ -21,12 +22,8 @@ class Event {
 
   /**
    *触发
-   * @param {*} type
-   * @param {*} event
-   * @returns
-   * @memberof Event
    */
-  emit(type: any, event: any) {
+  emit(type: EventEnum, event: PointerEvent) {
     if (event == null || event.type == null) {
       return;
     }
@@ -41,11 +38,8 @@ class Event {
   /**
    * 删除
    *
-   * @param {*} type
-   * @param {*} handler
-   * @memberof Event
    */
-  remove(type: string, handler: Function) {
+  remove(type: EventEnum, handler: Function) {
     if (!handler) {
       this._listener[type] = [];
       return;
@@ -54,7 +48,7 @@ class Event {
     if (this._listener[type]) {
       const listeners = this._listener[type];
       for (let i = 0, len = listeners.length; i < len; i++) {
-        if (listeners[i] === listeners) {
+        if (listeners[i] === handler) {
           listeners.splice(i, 1);
         }
       }
