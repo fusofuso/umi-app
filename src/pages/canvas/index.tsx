@@ -9,21 +9,11 @@ export default function IndexPage() {
     draw2();
   }, []);
 
-  const draw1 = () => {
-    let canvas = document.getElementById('canvas') as HTMLCanvasElement;
-    if (canvas.getContext) {
-      let ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-      drawCartoon(ctx);
-      // drawImage(ctx);
-    } else {
-      // canvas-unsupported code here
-    }
-  };
   const draw2 = () => {
     const canvas = new Canvas(
       document.querySelector('#canvas') as HTMLCanvasElement,
     );
-
+    // drawCartoon(canvas.ctx);
     const offset = 18;
     for (var i = 0; i < 6; i++) {
       for (var j = 0; j < 6; j++) {
@@ -36,8 +26,9 @@ export default function IndexPage() {
             255 - 42.5 * j,
           )},0`,
         });
-        rect.on('click', (event: Event) => {
-          console.log(`rect${i}${j} click`, event);
+        rect.on('click', (event: PointerEvent) => {
+          console.log(`rect${i}${j} click`, event, rect.config);
+          drawCartoon(canvas.ctx, rect.config.fillStyle);
         });
       }
     }
@@ -45,7 +36,7 @@ export default function IndexPage() {
     canvas.draw();
   };
 
-  const drawCartoon = (ctx: CanvasRenderingContext2D) => {
+  const drawCartoon = (ctx: CanvasRenderingContext2D, fillStyle: string) => {
     // 绘制哆啦A梦的头
     ctx.beginPath();
     ctx.arc(200, 200, 100, 0, 2 * Math.PI);

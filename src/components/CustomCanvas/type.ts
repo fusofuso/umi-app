@@ -1,5 +1,4 @@
 export type ElementConfig = {
-  index: number;
   /**
    * 横坐标
    */
