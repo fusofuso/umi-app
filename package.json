@@ -21,8 +21,10 @@
   },
   "dependencies": {
     "@ant-design/pro-layout": "^6.5.0",
+    "konva": "^8.4.2",
     "react": "17.x",
     "react-dom": "17.x",
+    "react-konva": "^18.2.5",
     "umi": "^3.5.37"
   },
   "devDependencies": {

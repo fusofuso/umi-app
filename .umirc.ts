@@ -7,6 +7,7 @@ export default defineConfig({
   routes: [
     { path: '/', component: '@/pages/index/index' },
     { path: '/canvas', component: '@/pages/canvas/index' },
+    { path: '/canvasLayer', component: '@/pages/canvasLayer/index' },
   ],
   fastRefresh: {},
 });
