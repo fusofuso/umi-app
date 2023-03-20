@@ -76,7 +76,7 @@ class Rect extends Event {
    * @returns
    */
   getEventPosition(clientX: number, clientY: number): { x: number; y: number } {
-    const bbox = this.canvas.canvas.getBoundingClientRect();
+    const bbox = this.canvas.canvasElement.getBoundingClientRect();
     return {
       x: clientX - bbox.left,
       y: clientY - bbox.top,

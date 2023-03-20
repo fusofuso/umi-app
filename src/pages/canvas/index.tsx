@@ -21,6 +21,14 @@ export default function CanvasDemo() {
       fillStyle: '#fff',
       draggable: true,
     });
+    const rectTest2 = canvas.rect({
+      x: 200,
+      y: 200,
+      width: 100,
+      height: 100,
+      fillStyle: '#fff',
+      draggable: true,
+    });
     // drawCartoon(canvas.ctx, 'red');
     // const offset = 18;
     // for (var i = 0; i < 6; i++) {

@@ -6,18 +6,18 @@ import { EventEnum } from './enum';
 
 class Canvas extends Event {
   ctx: CanvasRenderingContext2D;
-  canvas: HTMLCanvasElement;
+  canvasElement: HTMLCanvasElement;
   children: Array<Rect>;
   constructor(c: HTMLCanvasElement) {
     super();
-    this.canvas = c;
+    this.canvasElement = c;
     this.ctx = c.getContext('2d') as CanvasRenderingContext2D;
     this.children = [];
     this.initEvent();
   }
   initEvent() {
     EventList.forEach((eventName) => {
-      this.canvas.addEventListener(
+      this.canvasElement.addEventListener(
         eventName,
         this.handleEvent as EventListener,
       );
@@ -39,7 +39,12 @@ class Canvas extends Event {
    */
   draw() {
     //todo1 需要先清除再绘制
-    this.ctx.clearRect(0, 0, this.canvas.offsetWidth, this.canvas.offsetHeight);
+    this.ctx.clearRect(
+      0,
+      0,
+      this.canvasElement.offsetWidth,
+      this.canvasElement.offsetHeight,
+    );
     this.children.forEach((shape) => shape.draw());
   }
 
