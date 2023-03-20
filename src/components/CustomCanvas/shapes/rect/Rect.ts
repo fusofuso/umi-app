@@ -32,6 +32,8 @@ class Rect extends Event {
   /**
    * 支持拖拽
    * todo3 mousedown只需要监听元素的，mousemove何mouseup则需要监听整个画布，否则会丢失
+   *
+   * 问题: 两个矩形部分重叠时，在重叠区域进行移动会产生完全重叠
    */
   onDrag() {
     this.on(EventEnum.MOUSEDOWN, (event: PointerEvent) => {

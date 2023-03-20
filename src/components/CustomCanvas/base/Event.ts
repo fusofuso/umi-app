@@ -1,9 +1,9 @@
 import { EventEnum } from '../enum';
 class Event {
-  _listener: { [propsName: string]: Function[] };
+  eventListeners: { [propsName: string]: Array<(event: PointerEvent) => void> };
 
   constructor() {
-    this._listener = {};
+    this.eventListeners = {};
   }
 
   /**
@@ -12,12 +12,12 @@ class Event {
    * @param {function} handler
    * @memberof Event
    */
-  on(type: EventEnum, handler: Function) {
-    if (!this._listener[type]) {
-      this._listener[type] = [];
+  on(type: EventEnum, handler: (event: PointerEvent) => void) {
+    if (!this.eventListeners[type]) {
+      this.eventListeners[type] = [];
     }
 
-    this._listener[type].push(handler);
+    this.eventListeners[type].push(handler);
   }
 
   /**
@@ -27,7 +27,7 @@ class Event {
     if (event == null || event.type == null) {
       return;
     }
-    const typeListeners = this._listener[type];
+    const typeListeners = this.eventListeners[type];
     if (!typeListeners) return;
     for (let index = 0; index < typeListeners.length; index++) {
       const handler = typeListeners[index];
@@ -41,12 +41,12 @@ class Event {
    */
   remove(type: EventEnum, handler: Function) {
     if (!handler) {
-      this._listener[type] = [];
+      this.eventListeners[type] = [];
       return;
     }
 
-    if (this._listener[type]) {
-      const listeners = this._listener[type];
+    if (this.eventListeners[type]) {
+      const listeners = this.eventListeners[type];
       for (let i = 0, len = listeners.length; i < len; i++) {
         if (listeners[i] === handler) {
           listeners.splice(i, 1);
