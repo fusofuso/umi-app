@@ -13,7 +13,7 @@ export default function CanvasDemo() {
     const canvas = new Canvas(
       document.querySelector('#canvas') as HTMLCanvasElement,
     );
-    // drawCartoon(canvas.ctx);
+    // drawCartoon(canvas.ctx, 'red');
     const offset = 18;
     for (var i = 0; i < 6; i++) {
       for (var j = 0; j < 6; j++) {
@@ -32,7 +32,7 @@ export default function CanvasDemo() {
       }
     }
 
-    canvas.draw();
+    // canvas.draw();
   };
 
   const drawCartoon = (ctx: CanvasRenderingContext2D, fillStyle: string) => {

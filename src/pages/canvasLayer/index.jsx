@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
 
@@ -6,11 +6,14 @@ function CanvasLayer() {
   useEffect(() => {
     const stage = new Konva.Stage({
       container: 'canvasLayer',
-      width: 500,
-      height: 500,
+      width: document.body.clientWidth,
+      height: document.body.clientHeight,
     });
     const layer1 = new Konva.Layer();
     stage.add(layer1);
+    const group1 = new Konva.Group({
+      draggable: true,
+    });
     const circle = new Konva.Circle({
       x: 200,
       y: 200,
@@ -19,12 +22,6 @@ function CanvasLayer() {
       stroke: 'black',
       strokeWidth: 4,
     });
-    layer1.add(circle);
-
-    circle.on('click', () => {
-      console.log('click circle');
-    });
-
     const rect = new Konva.Rect({
       x: 300,
       y: 300,
@@ -33,7 +30,15 @@ function CanvasLayer() {
       stroke: 'red',
       draggable: true,
     });
-    layer1.add(rect);
+
+    group1.add(circle);
+    group1.add(rect);
+    layer1.add(group1);
+
+    //添加事件
+    circle.on('click', () => {
+      console.log('click circle');
+    });
     rect.on('mouseover', function (e) {
       rect.fill('yellow');
     });
