@@ -1,4 +1,4 @@
-import { EventEnum } from './enum';
+import { EventEnum } from '../enum';
 class Event {
   _listener: { [propsName: string]: Function[] };
 

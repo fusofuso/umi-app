@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styles from './index.less';
 import brownPng from '@/assets/common/bg-brown.png';
-import Canvas from '../../components/CustomCanvas/Canvas';
+import Canvas from '../../components/CustomCanvas';
 import { EventEnum } from '@/components/CustomCanvas/enum';
 
 export default function CanvasDemo() {

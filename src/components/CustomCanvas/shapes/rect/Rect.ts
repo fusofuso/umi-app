@@ -1,7 +1,7 @@
-import Event from './Event';
-import Canvas from './Canvas';
+import Event from '../../base/Event';
+import Canvas from '../..';
 import { RectConfig } from './type';
-import { EventEnum } from './enum';
+import { EventEnum } from '../../enum';
 
 class Rect extends Event {
   canvas: Canvas;

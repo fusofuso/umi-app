@@ -1,6 +1,6 @@
-import Event from './Event';
-import Rect from './Rect';
-import { RectConfig } from './type';
+import Event from './base/Event';
+import Rect from './shapes/rect/Rect';
+import { RectConfig } from './shapes/rect/type';
 import { EventList } from './const';
 import { EventEnum } from './enum';
 
@@ -8,13 +8,16 @@ class Canvas extends Event {
   ctx: CanvasRenderingContext2D;
   canvasElement: HTMLCanvasElement;
   children: Array<Rect>;
-  constructor(c: HTMLCanvasElement) {
+  constructor(element: HTMLCanvasElement) {
     super();
-    this.canvasElement = c;
-    this.ctx = c.getContext('2d') as CanvasRenderingContext2D;
+    this.canvasElement = element;
+    this.ctx = element.getContext('2d') as CanvasRenderingContext2D;
     this.children = [];
     this.initEvent();
   }
+  /**
+   * 初始化整个canvas的事件监听
+   */
   initEvent() {
     EventList.forEach((eventName) => {
       this.canvasElement.addEventListener(
