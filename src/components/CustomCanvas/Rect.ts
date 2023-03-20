@@ -1,21 +1,52 @@
 import Event from './Event';
 import Canvas from './Canvas';
 import { RectConfig } from './type';
+import { EventEnum } from './enum';
 
 class Rect extends Event {
-  canvas;
+  canvas: Canvas;
   config: RectConfig;
+  isDragging: boolean = false;
+
   constructor(opts: RectConfig, canvas: Canvas) {
     super();
     this.canvas = canvas;
     this.config = opts;
+    if (opts.draggable) {
+      this.onDrag();
+    }
   }
 
+  /**
+   * 绘制
+   */
   draw() {
     const ctx = this.canvas.ctx;
-    const { x, y, width, height, fillStyle } = this.config;
-    ctx.fillStyle = fillStyle;
+    const { x, y, width, height, fillStyle, strokeStyle } = this.config;
+    ctx.fillStyle = fillStyle || 'white';
+    ctx.strokeStyle = strokeStyle || 'black';
     ctx.fillRect(x, y, width, height);
+    ctx.strokeRect(x, y, width, height);
+  }
+
+  /**
+   * 支持拖拽
+   * todo3 mousedown只需要监听元素的，mousemove何mouseup则需要监听整个画布，否则会丢失
+   */
+  onDrag() {
+    this.on(EventEnum.MOUSEDOWN, (event: PointerEvent) => {
+      this.isDragging = true;
+    });
+    this.canvas.on(EventEnum.MOUSEMOVE, (event: PointerEvent) => {
+      if (this.isDragging) {
+        this.config.x = event.x - this.config.width / 2;
+        this.config.y = event.y - this.config.height / 2;
+        this.canvas.draw();
+      }
+    });
+    this.canvas.on(EventEnum.MOUSEUP, (event: PointerEvent) => {
+      this.isDragging = false;
+    });
   }
 
   /**

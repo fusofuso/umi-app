@@ -13,26 +13,35 @@ export default function CanvasDemo() {
     const canvas = new Canvas(
       document.querySelector('#canvas') as HTMLCanvasElement,
     );
+    const rectTest = canvas.rect({
+      x: 0,
+      y: 0,
+      width: 100,
+      height: 100,
+      fillStyle: '#fff',
+      draggable: true,
+    });
     // drawCartoon(canvas.ctx, 'red');
-    const offset = 18;
-    for (var i = 0; i < 6; i++) {
-      for (var j = 0; j < 6; j++) {
-        const rect = canvas.rect({
-          x: (j + offset) * 25,
-          y: (i + offset) * 25,
-          width: 25,
-          height: 25,
-          fillStyle: `rgb(${Math.floor(255 - 42.5 * i)},${Math.floor(
-            255 - 42.5 * j,
-          )},0`,
-        });
-        rect.on(EventEnum.CLICK, (event: PointerEvent) => {
-          drawCartoon(canvas.ctx, rect.config.fillStyle);
-        });
-      }
-    }
+    // const offset = 18;
+    // for (var i = 0; i < 6; i++) {
+    //   for (var j = 0; j < 6; j++) {
+    //     const rect = canvas.rect({
+    //       x: (j + offset) * 25,
+    //       y: (i + offset) * 25,
+    //       width: 25,
+    //       height: 25,
+    //       fillStyle: `rgb(${Math.floor(255 - 42.5 * i)},${Math.floor(
+    //         255 - 42.5 * j,
+    //       )},0`,
+    //       draggable: true,
+    //     });
+    //     rect.on(EventEnum.CLICK, (event: PointerEvent) => {
+    //       drawCartoon(canvas.ctx, rect.config.fillStyle);
+    //     });
+    //   }
+    // }
 
-    // canvas.draw();
+    canvas.draw();
   };
 
   const drawCartoon = (ctx: CanvasRenderingContext2D, fillStyle: string) => {

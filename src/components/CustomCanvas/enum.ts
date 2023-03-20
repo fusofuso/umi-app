@@ -3,4 +3,7 @@
  */
 export enum EventEnum {
   CLICK = 'click',
+  MOUSEDOWN = 'mousedown',
+  MOUSEUP = 'mouseup',
+  MOUSEMOVE = 'mousemove',
 }
