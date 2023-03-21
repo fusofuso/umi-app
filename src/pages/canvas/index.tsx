@@ -5,14 +5,41 @@ import Canvas from '../../components/CustomCanvas';
 import { EventEnum } from '@/components/CustomCanvas/enum';
 
 export default function CanvasDemo() {
+  let canvas: Canvas;
+
   useEffect(() => {
+    canvas = new Canvas(document.querySelector('#canvas') as HTMLCanvasElement);
     draw();
   }, []);
 
   const draw = () => {
-    const canvas = new Canvas(
-      document.querySelector('#canvas') as HTMLCanvasElement,
-    );
+    // //绘制图形
+    // drawCartoon('red');
+    // //绘制颜色条
+    // drawColorBar();
+    // //矩形拖拽
+    drawRectDrag();
+    //绘制圆形
+    drawCircle();
+    // //绘制图片
+    // drawImage();
+    canvas.draw();
+  };
+
+  const drawCircle = () => {
+    canvas.circle({
+      x: 200,
+      y: 200,
+      radius: 50,
+      startAngle: 0,
+      endAngle: 2 * Math.PI,
+      // fillStyle:'gray',
+      strokeStyle:'yellow',
+      draggable:true
+    });
+  };
+
+  const drawRectDrag = () => {
     const rectTest = canvas.rect({
       x: 0,
       y: 0,
@@ -29,30 +56,29 @@ export default function CanvasDemo() {
       fillStyle: '#fff',
       draggable: true,
     });
-    // drawCartoon(canvas.ctx, 'red');
-    // const offset = 18;
-    // for (var i = 0; i < 6; i++) {
-    //   for (var j = 0; j < 6; j++) {
-    //     const rect = canvas.rect({
-    //       x: (j + offset) * 25,
-    //       y: (i + offset) * 25,
-    //       width: 25,
-    //       height: 25,
-    //       fillStyle: `rgb(${Math.floor(255 - 42.5 * i)},${Math.floor(
-    //         255 - 42.5 * j,
-    //       )},0`,
-    //       draggable: true,
-    //     });
-    //     rect.on(EventEnum.CLICK, (event: PointerEvent) => {
-    //       drawCartoon(canvas.ctx, rect.config.fillStyle);
-    //     });
-    //   }
-    // }
-
-    canvas.draw();
   };
-
-  const drawCartoon = (ctx: CanvasRenderingContext2D, fillStyle: string) => {
+  const drawColorBar = () => {
+    const offset = 18;
+    for (var i = 0; i < 6; i++) {
+      for (var j = 0; j < 6; j++) {
+        const rect = canvas.rect({
+          x: (j + offset) * 25,
+          y: (i + offset) * 25,
+          width: 25,
+          height: 25,
+          fillStyle: `rgb(${Math.floor(255 - 42.5 * i)},${Math.floor(
+            255 - 42.5 * j,
+          )},0`,
+          draggable: true,
+        });
+        rect.on(EventEnum.CLICK, (event: PointerEvent) => {
+          drawCartoon(rect.config.fillStyle);
+        });
+      }
+    }
+  };
+  const drawCartoon = (fillStyle: string = 'red') => {
+    const ctx = canvas.ctx;
     // 绘制哆啦A梦的头
     ctx.beginPath();
     ctx.arc(200, 200, 100, 0, 2 * Math.PI);
@@ -129,7 +155,8 @@ export default function CanvasDemo() {
     ctx.fill();
   };
 
-  const drawImage = (ctx: CanvasRenderingContext2D) => {
+  const drawImage = () => {
+    const ctx = canvas.ctx;
     const img = new Image();
     img.onload = function () {
       ctx.drawImage(img, 0, 0);

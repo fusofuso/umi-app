@@ -1,13 +1,15 @@
 import Event from './base/Event';
-import Rect from './shapes/rect/Rect';
+import Rect from './shapes/rect';
 import { RectConfig } from './shapes/rect/type';
 import { EventList } from './const';
 import { EventEnum } from './enum';
+import { CircleConfig } from './shapes/circle/type';
+import Circle from './shapes/circle';
 
 class Canvas extends Event {
   ctx: CanvasRenderingContext2D;
   canvasElement: HTMLCanvasElement;
-  children: Array<Rect>;
+  children: Array<Rect | Circle>;
   constructor(element: HTMLCanvasElement) {
     super();
     this.canvasElement = element;
@@ -34,7 +36,7 @@ class Canvas extends Event {
       .forEach((shape) => shape.emit(event.type as EventEnum, event));
   };
 
-  addChild(shape: Rect) {
+  addChild(shape: Rect | Circle) {
     this.children.push(shape);
   }
   /**
@@ -55,6 +57,11 @@ class Canvas extends Event {
     const rect = new Rect(config, this);
     this.addChild(rect);
     return rect;
+  }
+  circle(config: CircleConfig) {
+    const circle = new Circle(config, this);
+    this.addChild(circle);
+    return circle;
   }
 }
 

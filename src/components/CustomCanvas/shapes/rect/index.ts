@@ -1,20 +1,16 @@
-import Event from '../../base/Event';
+import Shape from '../../base/Shape';
 import Canvas from '../..';
 import { RectConfig } from './type';
-import { EventEnum } from '../../enum';
+import { ShapeEnum } from '../../enum';
 
-class Rect extends Event {
+class Rect extends Shape {
   canvas: Canvas;
   config: RectConfig;
-  isDragging: boolean = false;
 
   constructor(opts: RectConfig, canvas: Canvas) {
-    super();
+    super(opts, canvas, ShapeEnum.RECT);
     this.canvas = canvas;
     this.config = opts;
-    if (opts.draggable) {
-      this.onDrag();
-    }
   }
 
   /**
@@ -27,28 +23,6 @@ class Rect extends Event {
     ctx.strokeStyle = strokeStyle || 'black';
     ctx.fillRect(x, y, width, height);
     ctx.strokeRect(x, y, width, height);
-  }
-
-  /**
-   * 支持拖拽
-   * todo3 mousedown只需要监听元素的，mousemove何mouseup则需要监听整个画布，否则会丢失
-   *
-   * 问题: 两个矩形部分重叠时，在重叠区域进行移动会产生完全重叠
-   */
-  onDrag() {
-    this.on(EventEnum.MOUSEDOWN, (event: PointerEvent) => {
-      this.isDragging = true;
-    });
-    this.canvas.on(EventEnum.MOUSEMOVE, (event: PointerEvent) => {
-      if (this.isDragging) {
-        this.config.x = event.x - this.config.width / 2;
-        this.config.y = event.y - this.config.height / 2;
-        this.canvas.draw();
-      }
-    });
-    this.canvas.on(EventEnum.MOUSEUP, (event: PointerEvent) => {
-      this.isDragging = false;
-    });
   }
 
   /**

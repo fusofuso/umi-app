@@ -7,3 +7,10 @@ export enum EventEnum {
   MOUSEUP = 'mouseup',
   MOUSEMOVE = 'mousemove',
 }
+/**
+ * 事件类型枚举
+ */
+export enum ShapeEnum {
+  RECT = 'rect',
+  CIRCLE = 'circle',
+}
