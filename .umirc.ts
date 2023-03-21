@@ -8,6 +8,7 @@ export default defineConfig({
     { path: '/', component: '@/pages/index/index' },
     { path: '/canvas', component: '@/pages/canvas/index' },
     { path: '/canvasLayer', component: '@/pages/canvasLayer/index' },
+    { path: '/webGL', component: '@/pages/webGL/index' },
   ],
   fastRefresh: {},
 });
