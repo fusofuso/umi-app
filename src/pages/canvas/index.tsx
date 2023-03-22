@@ -18,12 +18,38 @@ export default function CanvasDemo() {
     // //绘制颜色条
     // drawColorBar();
     // //矩形拖拽
-    drawRectDrag();
+    // drawRectDrag();
     //绘制圆形
-    drawCircle();
+    // drawCircle();
     // //绘制图片
     // drawImage();
+    //动画
+    drawAnimation();
+
     canvas.draw();
+  };
+
+  const drawAnimation = () => {
+    const ctx = canvas.ctx
+    // 绘制一个静态图像
+    function draw() {
+      ctx.fillStyle = 'gray';
+      ctx.fillRect(0, 0, 600, 600);
+    }
+    // 更新Canvas上的图像
+    function update() {
+      // 在每一帧更新Canvas上的图像
+      requestAnimationFrame(update);
+
+      // 清除Canvas上的图像
+      ctx.clearRect(0, 0, 600, 600);
+
+      // 绘制新的图像
+      draw();
+    }
+
+    // 开始动画
+    update();
   };
 
   const drawCircle = () => {
@@ -34,13 +60,13 @@ export default function CanvasDemo() {
       startAngle: 0,
       endAngle: 2 * Math.PI,
       // fillStyle:'gray',
-      strokeStyle:'yellow',
-      draggable:true
+      strokeStyle: 'yellow',
+      draggable: true,
     });
   };
 
   const drawRectDrag = () => {
-    const rectTest = canvas.rect({
+    canvas.rect({
       x: 0,
       y: 0,
       width: 100,
@@ -48,7 +74,7 @@ export default function CanvasDemo() {
       fillStyle: '#fff',
       draggable: true,
     });
-    const rectTest2 = canvas.rect({
+    canvas.rect({
       x: 200,
       y: 200,
       width: 100,
