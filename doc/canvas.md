@@ -4,7 +4,7 @@
 
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-# 绘制基本形状：学习如何使用 Canvas 绘制基本形状，例如矩形、圆形和路径。
+# 绘制基本形状：学习如何使用 Canvas 绘制基本形状，例如矩形、圆形和路径,绘制图像。
     //设置线条样式
     ctx.strokeStyle='red'
     //设置填充样式
@@ -38,8 +38,6 @@
     ctx.bezierCurveTo(50, 100, 100, 100, 100, 50);
     ctx.stroke();
 
-# 图像处理：了解如何将图像加载到 Canvas 中，并使用 Canvas 方法对其进行处理和操作。
-
     // 创建一个Image对象
     const img = new Image();
 
@@ -51,16 +49,43 @@
         ctx.drawImage(img, 0, 0);
     };
 
-# 动画制作：学习如何使用 Canvas 创建动画，包括使用 requestAnimationFrame() 方法和制作基于时间的动画。
+# 基于canvas原生api进行封装。
 
 
-# Canvas 应用程序：探索如何使用 Canvas 创建实际的应用程序，例如基于 Canvas 的绘图编辑器和游戏。
+   抽象事件 - 抽象基础图形 - 图形实例
 
 
+# 引入图层概念
 
-# 性能优化：了解如何优化 Canvas 应用程序的性能，包括减少绘图的数量和使用合适的算法。
+ konva
+
+              Stage
+                |
+         +------+------+
+         |             |
+       Layer         Layer
+         |             |
+   +-----+-----+     Shape
+   |           |
+ Group       Group
+   |           |
+   +       +---+---+
+   |       |       |
+Shape   Group    Shape
+           |
+           +
+           |
+         Shape
 
 
-# 与其他 Web 技术集成：Canvas 可以与其他 Web 技术集成，例如 WebGL、Web Audio 和 Web Workers。介绍这些技术，以及如何将它们与 Canvas 集成，以创建更复杂的应用程序。
+# 性能优化：了解如何优化 Canvas 应用程序的性能
+
+减少绘制次数
+
+web Worker  采用后台线程进行图形像素计算，效率更高
+
+# 与其他 Web 技术集成：Canvas 可以与其他 Web 技术集成，例如 WebGL。
+
+WebGL       基于OpenGL ES 2.0的3D图形库，3D渲染效率高，矩阵计算3d变换
 
 

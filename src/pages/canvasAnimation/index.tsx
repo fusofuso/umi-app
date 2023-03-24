@@ -20,7 +20,7 @@ function CanvasAnimation() {
     setTimeout(() => {
       draw();
       moveDots()
-    }, 100);
+    }, 1000);
   }, []);
 
   const moveDots = ()=>{
