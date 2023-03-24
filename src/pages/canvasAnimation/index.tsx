@@ -12,21 +12,21 @@ function CanvasAnimation() {
   let context: CanvasRenderingContext2D;
   let canvas: HTMLCanvasElement;
 
-  const [dots, setDots] = useState<DotsType[]>([]);
+  // const [dots, setDots] = useState<DotsType[]>([]);
+
+  let dots: DotsType[] = [];
 
   useEffect(() => {
     canvas = document.getElementById('canvas') as HTMLCanvasElement;
     context = canvas.getContext('2d') as CanvasRenderingContext2D;
-    setTimeout(() => {
       draw();
-      moveDots()
-    }, 1000);
+      moveDots();
   }, []);
 
-  const moveDots = ()=>{
-    requestAnimationFrame(moveDots)
-    drawDots()
-  }
+  const moveDots = () => {
+    requestAnimationFrame(moveDots);
+    drawDots();
+  };
 
   const draw = () => {
     //创建点
@@ -37,7 +37,7 @@ function CanvasAnimation() {
 
   const createDots = () => {
     // 创建粒子
-    var dots: DotsType[] = [];
+    // var dots: DotsType[] = [];
     for (var i = 0; i < 100; i++) {
       dots.push({
         x: Math.random() * canvas.width, // x  , y  为  粒子坐标
@@ -47,7 +47,7 @@ function CanvasAnimation() {
         max: 100, // 连线的最大距离 px
       });
     }
-    setDots(dots);
+    // setDots(dots);
   };
 
   const drawDots = () => {
