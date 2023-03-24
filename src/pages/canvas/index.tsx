@@ -1,57 +1,52 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './index.less';
 import brownPng from '@/assets/common/bg-brown.png';
 import Canvas from '../../components/CustomCanvas';
 import { EventEnum } from '@/components/CustomCanvas/enum';
+import { Button } from 'antd';
 
 export default function CanvasDemo() {
   let canvas: Canvas;
+  const [type, setType] = useState<number>();
 
+  // useEffect(() => {
+  //   canvas = new Canvas(document.querySelector('#canvas') as HTMLCanvasElement);
+  //   draw();
+  // }, []);
   useEffect(() => {
     canvas = new Canvas(document.querySelector('#canvas') as HTMLCanvasElement);
     draw();
-  }, []);
+  }, [type]);
 
   const draw = () => {
-    // //绘制图形
-    // drawCartoon('red');
-    // //绘制颜色条
-    // drawColorBar();
-    // //矩形拖拽
-    // drawRectDrag();
-    //绘制圆形
-    // drawCircle();
-    // //绘制图片
-    // drawImage();
-    //动画
-    drawAnimation();
+    switch (type) {
+      case 1:
+        // //绘制图形
+        drawCartoon();
+        break;
+      case 2:
+        // //绘制颜色条
+        drawColorBar();
+        break;
+      case 3:
+        // //矩形拖拽
+        drawRectDrag();
+        break;
+      case 4:
+        //绘制圆形
+        drawCircle();
+        break;
+      case 5:
+        // //绘制图片
+        drawImage();
+        break;
 
-    canvas.draw();
-  };
-
-  const drawAnimation = () => {
-    const ctx = canvas.ctx
-    // 绘制一个静态图像
-    function draw() {
-      ctx.fillStyle = 'gray';
-      ctx.fillRect(0, 0, 600, 600);
-    }
-    // 更新Canvas上的图像
-    function update() {
-      // 在每一帧更新Canvas上的图像
-      requestAnimationFrame(update);
-
-      // 清除Canvas上的图像
-      ctx.clearRect(0, 0, 600, 600);
-
-      // 绘制新的图像
-      draw();
+      default:
+        break;
     }
 
-    // 开始动画
-    update();
+   
   };
-
   const drawCircle = () => {
     canvas.circle({
       x: 200,
@@ -63,6 +58,7 @@ export default function CanvasDemo() {
       strokeStyle: 'yellow',
       draggable: true,
     });
+    canvas.draw();
   };
 
   const drawRectDrag = () => {
@@ -82,6 +78,7 @@ export default function CanvasDemo() {
       fillStyle: '#fff',
       draggable: true,
     });
+    canvas.draw();
   };
   const drawColorBar = () => {
     const offset = 18;
@@ -102,6 +99,7 @@ export default function CanvasDemo() {
         });
       }
     }
+    canvas.draw();
   };
   const drawCartoon = (fillStyle: string = 'red') => {
     const ctx = canvas.ctx;
@@ -192,6 +190,45 @@ export default function CanvasDemo() {
 
   return (
     <div>
+      <div>
+        <Button.Group>
+          <Button
+            onClick={() => {
+              setType(1);
+            }}
+          >
+            绘制图形
+          </Button>
+          <Button
+            onClick={() => {
+              setType(2);
+            }}
+          >
+            绘制color bar
+          </Button>
+          <Button
+            onClick={() => {
+              setType(3);
+            }}
+          >
+            绘制矩形
+          </Button>
+          <Button
+            onClick={() => {
+              setType(4);
+            }}
+          >
+            绘制圆形
+          </Button>
+          <Button
+            onClick={() => {
+              setType(5);
+            }}
+          >
+            绘制图片
+          </Button>
+        </Button.Group>
+      </div>
       <canvas className={styles.canvas} id="canvas" width="600" height="600">
         <span>浏览器不支持canvas</span>
       </canvas>
